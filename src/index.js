@@ -1,14 +1,9 @@
 const express = require('express');
-const knex = require('./database');
-
+const userController = require('./controllers/UserController');
 
 const app = express();
 
-app.get('/users', function (req, res) {
-    knex('usuarios').then((resultados) => {
-        res.json(resultados);
-    })
-});
+app.get('/users', userController.listar);
 
 app.listen(3000, function () {
     console.log("API rodandooooo");
