@@ -1,5 +1,7 @@
 const express = require('express');
 const userController = require('./controllers/UserController');
+const emailController = require('./controllers/EmailController');
+
 
 const app = express();
 
@@ -7,6 +9,9 @@ app.use(express.json());
 
 app.get('/users', userController.listar);
 app.post('/users', userController.inserir);
+
+app.post('/email', emailController.enviar);
+
 
 app.use((req, res, next) => {
     const error = new Error('Not found');
