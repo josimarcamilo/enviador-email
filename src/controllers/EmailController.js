@@ -2,8 +2,9 @@ const enviadorEmail = require("../email/EnviadorEmail");
 
 module.exports = {
     async enviar(req, res) {
-        const link = await enviadorEmail.enviarTeste();
+        
+        enviadorEmail.enviarTeste().catch(console.log);
 
-        res.json({link});
+        res.send();
     }
 }
