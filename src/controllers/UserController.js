@@ -2,7 +2,7 @@ const knex = require('../database');
 
 module.exports ={
     async listar(req, res) {
-        const usuarios = await knex('usuarios');
+        const usuarios = await knex.select('id').select('email').select('senha').select('token').from('usuarios');
 
         return res.json(usuarios);
     },

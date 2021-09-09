@@ -3,15 +3,19 @@ const nodemailer = require('nodemailer');
 // process.env.NODE_ENV === 'production'
 
 async function configuracaoEmail(){
-    if (false){
-        const contaDeTeste = await nodemailer.createTestAccount();
-        const configTeste = {
-            host: 'smtp.ethereal.email',
-            auth: contaDeTeste
-        };
+    if (true){
+        const configTest = {
+            host: "smtp.mailtrap.io",
+            port: 2525,
+            auth: {
+              user: "fabdbd652a3822",
+              pass: "fb5f34a0740204"
+            }
+          };
 
-        return configTeste;
-    }else{
+        return configTest;
+    }
+
         const configProducao ={
             host: 'mail.orfed.com.br',
             name: 'orfed.com.br',
@@ -23,7 +27,7 @@ async function configuracaoEmail(){
             secure: true
         };
         return configProducao;
-    }
+    
 }
 
 async function enviarTeste(){
@@ -45,8 +49,8 @@ async function enviarTeste(){
         subject: 'Meu primeiro e-mail com node js',
         html: '<h1>Olá mundo node</h1> <p>Este é um e-mail de verdade</p>'
     });
-    console.log(informacoes);
-    // console.log(nodemailer.getTestMessageUrl(informacoes));
+    // console.log(informacoes);
+    console.log(nodemailer.getTestMessageUrl(informacoes));
 }
 
 module.exports = {
