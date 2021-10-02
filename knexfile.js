@@ -3,10 +3,10 @@ module.exports = {
   development: {
     client: 'mysql',
     connection: {
-      host: '162.241.2.74',
-      user: 'orfedc83_ponto',
-      password: `MITIsF]ON#;l`,
-      database: 'orfedc83_ponto_online'
+      host: 'localhost',
+      user: 'braip',
+      password: `braip`,
+      database: 'email'
     },
     migrations: {
       directory: `${__dirname}/src/database/migrations`
@@ -33,18 +33,18 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'mysql',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_DATA_BASE
     },
     migrations: {
-      tableName: 'knex_migrations'
+      directory: `${__dirname}/src/database/migrations`
+    },
+    seeds: {
+      directory: `${__dirname}/src/database/seeds`
     }
   }
 

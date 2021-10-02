@@ -1,5 +1,6 @@
 const knex = require('../database');
-const {createToken} = require('../services/Jwt');
+const { createToken } = require('../services/Jwt');
+const { createHash, compare } = require('../services/Password');
 
 module.exports ={
     async listar(req, res) {
@@ -10,7 +11,9 @@ module.exports ={
     },
 
     async inserir(req, res, next){
-        const { email, password } = req.body;        
+        let { email, password } = req.body; 
+        
+        password = await createHash(password);
         const token = createToken({email});
 
         try {
@@ -19,5 +22,15 @@ module.exports ={
         } catch (error) {
             next(error);
         }
+    },
+
+    async login(req, res, next){
+        let { email, password } = req.body; 
+        const findhash = await knex.first('password', 'token').from('users').where('email', email);
+        if (await compare(password, findhash.password))
+        {
+            return res.json({"token": findhash.token});
+        }
+        next(new Error('Falha no login.'));
     }
 }
