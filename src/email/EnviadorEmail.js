@@ -1,18 +1,10 @@
 const nodemailer = require('nodemailer');
+const confEmailServer = require('../../confEmail');
 
 // process.env.NODE_ENV === 'production'
 
 async function configuracaoEmail(){ 
-  return {
-    host: process.env.EMAIL_HOST,
-    name: process.env.EMAIL_NAME,
-    port: process.env.EMAIL_PORT,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    },
-    secure: process.env.EMAIL_SECURE == 'true'
-  };   
+  return (process.env.NODE_ENV === 'production' ? confEmailServer.production : confEmailServer.development);  
 }
 
 async function send(){
@@ -34,6 +26,7 @@ async function send(){
         subject: 'Meu primeiro e-mail com node js',
         html: '<h1>Olá mundo node</h1> <p>Este é um e-mail de verdade</p>'
     });
+    console.log("e-mail enviado!");
   
 }
 
